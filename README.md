@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and templated with [Shards Dashboard React](https://github.com/DesignRevision/shards-dashboard-react).
 
+Components used are from [Shards React](https://designrevision.com/docs/shards-react/getting-started).
+
 ## Available Scripts
 
 In the project directory, you can run:
