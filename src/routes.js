@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import LoginLayout from "./layouts/Login";
 
 // Route Views
 import Login from "./views/Login";
@@ -18,7 +19,7 @@ export default [
   {
     path: "/",
     exact: true,
-    layout: DefaultLayout,
+    layout: LoginLayout,
     component: Login
     //component: () => <Redirect to="/blog-overview" />
   },
