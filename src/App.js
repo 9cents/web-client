@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import routes from "./routes";
-import withTracker from "./withTracker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/shards-dashboards.1.1.0.css";
@@ -16,13 +15,13 @@ export default () => (
             key={index}
             path={route.path}
             exact={route.exact}
-            component={withTracker(props => {
+            component={() => {
               return (
-                <route.layout {...props}>
-                  <route.component {...props} />
+                <route.layout>
+                  <route.component />
                 </route.layout>
               );
-            })}
+            }}
           />
         );
       })}
