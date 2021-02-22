@@ -4,44 +4,29 @@ import { Nav } from "shards-react";
 import SidebarNavItem from "./SidebarNavItem";
 import { Store } from "../../../flux";
 
-class SidebarNavItems extends React.Component {
-  constructor(props) {
-    super(props)
+function SidebarNavItems(props) {
+  const [navItems, setNavItems] = React.useState(Store.getSidebarItems());
 
-    this.state = {
-      navItems: Store.getSidebarItems()
+  React.useEffect(() => {
+    Store.addChangeListener(onChange);
+    return () => {
+      Store.removeChangeListener(onChange);
     };
+  }, []);
 
-    this.onChange = this.onChange.bind(this);
+  function onChange() {
+    setNavItems(Store.getSidebarItems());
   }
 
-  componentWillMount() {
-    Store.addChangeListener(this.onChange);
-  }
-
-  componentWillUnmount() {
-    Store.removeChangeListener(this.onChange);
-  }
-
-  onChange() {
-    this.setState({
-      ...this.state,
-      navItems: Store.getSidebarItems()
-    });
-  }
-
-  render() {
-    const { navItems: items } = this.state;
-    return (
-      <div className="nav-wrapper">
-        <Nav className="nav--no-borders flex-column">
-          {items.map((item, idx) => (
-            <SidebarNavItem key={idx} item={item} />
-          ))}
-        </Nav>
-      </div>
-    )
-  }
+  return (
+    <div className="nav-wrapper">
+      <Nav className="nav--no-borders flex-column">
+        {navItems.map((item, idx) => (
+          <SidebarNavItem key={idx} item={item} />
+        ))}
+      </Nav>
+    </div>
+  );
 }
 
 export default SidebarNavItems;

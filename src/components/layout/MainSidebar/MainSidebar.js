@@ -9,66 +9,50 @@ import SidebarNavItems from "./SidebarNavItems";
 
 import { Store } from "../../../flux";
 
-class MainSidebar extends React.Component {
-  constructor(props) {
-    super(props);
+function MainSidebar(props) {
+  const [menuVisible, setMenuVisible] = React.useState(false);
+  // eslint-disable-next-line
+  const [sidebarNavItems, setSidebarNavItems] = React.useState(
+    Store.getSidebarItems()
+  );
 
-    this.state = {
-      menuVisible: false,
-      sidebarNavItems: Store.getSidebarItems()
+  React.useEffect(() => {
+    Store.addChangeListener(onChange);
+    return () => {
+      Store.removeChangeListener(onChange);
     };
+  }, []);
 
-    this.onChange = this.onChange.bind(this);
+  function onChange() {
+    setMenuVisible(Store.getMenuState());
+    setSidebarNavItems(Store.getSidebarItems());
   }
 
-  componentWillMount() {
-    Store.addChangeListener(this.onChange);
-  }
+  const classes = classNames(
+    "main-sidebar",
+    "px-0",
+    "col-12",
+    menuVisible && "open"
+  );
 
-  componentWillUnmount() {
-    Store.removeChangeListener(this.onChange);
-  }
-
-  onChange() {
-    this.setState({
-      ...this.state,
-      menuVisible: Store.getMenuState(),
-      sidebarNavItems: Store.getSidebarItems()
-    });
-  }
-
-  render() {
-    const classes = classNames(
-      "main-sidebar",
-      "px-0",
-      "col-12",
-      this.state.menuVisible && "open"
-    );
-
-    return (
-      <Col
-        tag="aside"
-        className={classes}
-        lg={{ size: 2 }}
-        md={{ size: 3 }}
-      >
-        <SidebarMainNavbar hideLogoText={this.props.hideLogoText} />
-        <SidebarSearch />
-        <SidebarNavItems />
-      </Col>
-    );
-  }
+  return (
+    <Col tag="aside" className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
+      <SidebarMainNavbar hideLogoText={props.hideLogoText} />
+      <SidebarSearch />
+      <SidebarNavItems />
+    </Col>
+  );
 }
 
 MainSidebar.propTypes = {
   /**
    * Whether to hide the logo text, or not.
    */
-  hideLogoText: PropTypes.bool
+  hideLogoText: PropTypes.bool,
 };
 
 MainSidebar.defaultProps = {
-  hideLogoText: false
+  hideLogoText: false,
 };
 
 export default MainSidebar;
