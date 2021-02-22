@@ -18,7 +18,6 @@ import BlogPosts from "./views/BlogPosts";
 export default [
   {
     path: "/",
-    exact: true,
     layout: LoginLayout,
     component: Login
     //component: () => <Redirect to="/blog-overview" />

@@ -37,7 +37,12 @@ export default function Login() {
           />
         </Form.Group>
         {/* Hard Coded for now, need to remove! */}
-        <Link to='/blog-overview'>
+        <Link
+          to="/blog-overview"
+          onClick={() => {
+            localStorage.setItem("token", "tempTokenValue");
+          }}
+        >
           <Button block size="lg" type="submit" disabled={!validateForm()}>
             Login
           </Button>
