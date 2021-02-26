@@ -1,31 +1,54 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
+import { useHistory } from "react-router-dom";
 import "../styles/Login.css";
 
+import authProvider from "../utils/authProvider";
+
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorPrompt, setErrorPrompt] = useState("");
+  const history = useHistory();
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return username.length > 0 && password.length > 0;
   }
 
   function handleSubmit(event) {
     event.preventDefault();
+    authProvider
+      .login(username, password)
+      .then((response) => {
+        history.push("/blog-overview")
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          // wrong username/password
+          setErrorPrompt("Incorrect username or password. Please try again.");
+        } else {
+          setErrorPrompt(
+            "A problem happened with the server. Please try again."
+          );
+        }
+      });
   }
 
   return (
     <div className="Login">
       <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
+        <Form.Group size="lg" controlId="username">
+          <Form.Label>Username</Form.Label>
           <Form.Control
             autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="username"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setErrorPrompt("");
+            }}
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
@@ -33,20 +56,23 @@ export default function Login() {
           <Form.Control
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setErrorPrompt("");
+            }}
           />
         </Form.Group>
         {/* Hard Coded for now, need to remove! */}
-        <Link
-          to="/blog-overview"
-          onClick={() => {
-            localStorage.setItem("token", "tempTokenValue");
-          }}
+        <Button
+          block
+          size="lg"
+          type="submit"
+          disabled={!validateForm()}
+          onClick={handleSubmit}
         >
-          <Button block size="lg" type="submit" disabled={!validateForm()}>
-            Login
-          </Button>
-        </Link>
+          Login
+        </Button>
+        {errorPrompt && <Alert variant="danger">{errorPrompt}</Alert>}
       </Form>
     </div>
   );

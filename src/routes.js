@@ -14,6 +14,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import Questions from "./views/Questions";
 
 export default [
   {
@@ -56,5 +57,10 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/questions",
+    layout: DefaultLayout,
+    component: Questions
   }
 ];

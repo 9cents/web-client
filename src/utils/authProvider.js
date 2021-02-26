@@ -1,21 +1,15 @@
 import axios from "axios";
 export default {
   // called when the user attempts to login
-  login: ({ username, password }) => {
-    const request = axios.post(`${process.env.REACT_APP_API}/login`, {
-      email: username,
-      password,
+  login: ( username, password ) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/admin/login`, {
+      params: { name: username, password: password },
     });
-    return request
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(({ token }) => {
-        localStorage.setItem("token", token);
+    request
+      .then(({ data }) => {
+        localStorage.setItem("token", data.jwt);
       });
+    return request;
   },
   // called when the user attempts to logout
   logout: () => {
