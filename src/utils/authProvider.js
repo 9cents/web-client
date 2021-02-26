@@ -2,7 +2,7 @@ import axios from "axios";
 export default {
   // called when the user attempts to login
   login: ( username, password ) => {
-    const request = axios.get(`${process.env.REACT_APP_API}/admin/login`, {
+    const request = axios.get(`${process.env.REACT_APP_API}/loginweb`, {
       params: { name: username, password: password },
     });
     request
