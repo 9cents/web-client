@@ -43,8 +43,24 @@ export default {
     });
     return request;
   },
+  getUniqueQuestions: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/dungeonquestion`, {
+      params: params,
+    });
+    return request;
+  },
+  getDungeonQuestions: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/instructor`, {
+      params: params,
+    });
+    return request;
+  },
   updateAnswer: (data) => {
     const request = axios.put(`${process.env.REACT_APP_API}/answer`, data);
     return request;
   },
+  updateDungeon: (data) => {
+    const request = axios.put(`${process.env.REACT_APP_API}/instructor`, data)
+    return request
+  }
 };

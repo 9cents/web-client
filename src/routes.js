@@ -16,6 +16,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Questions from "./views/Questions";
 import Responses from "./views/Responses";
+import Dungeons from "./views/Dungeons";
 
 export default [
   {
@@ -68,5 +69,10 @@ export default [
     path: "/responses",
     layout: DefaultLayout,
     component: Responses
+  },
+  {
+    path: "/dungeons",
+    layout: DefaultLayout,
+    component: Dungeons
   }
 ];

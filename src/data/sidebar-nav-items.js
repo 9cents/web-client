@@ -46,5 +46,10 @@ export default function() {
       htmlBefore: '<i class="material-icons">speaker_notes</i>',
       to: "/responses",
     },
+    {
+      title: "Dungeons",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/dungeons"
+    }
   ];
 }
