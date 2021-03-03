@@ -4,7 +4,7 @@ export default function() {
       title: "Blog Dashboard",
       to: "/blog-overview",
       htmlBefore: '<i class="material-icons">edit</i>',
-      htmlAfter: ""
+      htmlAfter: "",
     },
     {
       title: "Blog Posts",
@@ -38,8 +38,13 @@ export default function() {
     },
     {
       title: "Questions",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/questions"
-    }
+      htmlBefore: '<i class="material-icons">question_answer</i>',
+      to: "/questions",
+    },
+    {
+      title: "Responses",
+      htmlBefore: '<i class="material-icons">speaker_notes</i>',
+      to: "/responses",
+    },
   ];
 }

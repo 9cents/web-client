@@ -31,8 +31,20 @@ export default {
     });
     return request;
   },
+  getPlayers: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/player`, {
+      params: params,
+    });
+    return request;
+  },
+  getResponseData: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/responsedata`, {
+      params: params,
+    });
+    return request;
+  },
   updateAnswer: (data) => {
-    const request = axios.put(`${process.env.REACT_APP_API}/answer`, data)
-    return request
-  }
+    const request = axios.put(`${process.env.REACT_APP_API}/answer`, data);
+    return request;
+  },
 };

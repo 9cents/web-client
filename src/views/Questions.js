@@ -35,9 +35,10 @@ const Questions = () => {
   React.useEffect(() => {
     // get worlds data
     apiProvider.getWorlds().then((res) => {
-      const data = res.data;
-      setWorldsData(data.data);
-      setSelectedWorld(data.data[0]);
+      if (res.data.data[0]) {
+        setWorldsData(res.data.data);
+        setSelectedWorld(res.data.data[0]);
+      }
     });
     // eslint-disable-next-line
   }, []);
@@ -164,12 +165,14 @@ const Questions = () => {
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle
-            sm="4"
-            title="Questions"
-            subtitle="Game Data"
-            className="text-sm-left"
-          />
+          <Col>
+            <PageTitle
+              sm="4"
+              title="Questions"
+              subtitle="Game Data"
+              className="text-sm-left"
+            />
+          </Col>
         </Row>
 
         {/* World Select */}

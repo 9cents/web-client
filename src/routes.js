@@ -15,6 +15,7 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Questions from "./views/Questions";
+import Responses from "./views/Responses";
 
 export default [
   {
@@ -62,5 +63,10 @@ export default [
     path: "/questions",
     layout: DefaultLayout,
     component: Questions
+  },
+  {
+    path: "/responses",
+    layout: DefaultLayout,
+    component: Responses
   }
 ];
