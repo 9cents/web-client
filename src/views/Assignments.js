@@ -19,7 +19,7 @@ import apiProvider from "../utils/apiProvider";
 
 import PageTitle from "../components/common/PageTitle";
 
-const Dungeons = () => {
+const Assignments = () => {
     const [questionsData, setQuestionsData] = React.useState([]);
     const [selectedQuestions, setSelectedQuestions] = React.useState({});
     const [updateSuccess, setUpdateSuccess] = React.useState(null);
@@ -222,4 +222,4 @@ const Dungeons = () => {
   );
 };
 
-export default Dungeons;
+export default Assignments;

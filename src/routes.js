@@ -16,7 +16,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Questions from "./views/Questions";
 import Responses from "./views/Responses";
-import Dungeons from "./views/Dungeons";
+import Assignments from "./views/Assignments";
 
 export default [
   {
@@ -71,8 +71,8 @@ export default [
     component: Responses
   },
   {
-    path: "/dungeons",
+    path: "/assignments",
     layout: DefaultLayout,
-    component: Dungeons
+    component: Assignments
   }
 ];

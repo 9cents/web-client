@@ -47,9 +47,9 @@ export default function() {
       to: "/responses",
     },
     {
-      title: "Dungeons",
+      title: "Assignments",
       htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/dungeons"
+      to: "/assignments"
     }
   ];
 }
