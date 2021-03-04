@@ -1,16 +1,12 @@
 import React from "react";
 import {
   Container,
-  Col,
   Row,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   FormSelect,
-  FormRadio,
-  FormInput,
   Button,
-  Card,
   CardHeader,
   Alert,
 } from "shards-react";
@@ -20,38 +16,44 @@ import apiProvider from "../utils/apiProvider";
 import PageTitle from "../components/common/PageTitle";
 
 const Assignments = () => {
-    const [questionsData, setQuestionsData] = React.useState([]);
-    const [selectedQuestions, setSelectedQuestions] = React.useState({});
-    const [updateSuccess, setUpdateSuccess] = React.useState(null);
+  const [questionsData, setQuestionsData] = React.useState([]);
+  const [selectedInstructor, setSelectedInstructor] = React.useState({});
+  const [updateSuccess, setUpdateSuccess] = React.useState(null);
+  const [valuesChanged, setValuesChanged] = React.useState(false);
+  const [question1, setQuestion1] = React.useState({});
+  const [question2, setQuestion2] = React.useState({});
+  const [question3, setQuestion3] = React.useState({});
+  const [question4, setQuestion4] = React.useState({});
+  const [question5, setQuestion5] = React.useState({});
+  const questionArray = [question1, question2, question3, question4, question5];
 
   React.useEffect(() => {
-    apiProvider
-      .getDungeonQuestions({ instructor_id: 1 })
-      .then((res) => {
-        const data = res.data;
-        console.log(data.data)
-        setSelectedQuestions(data.data[0]);
-      });
+    apiProvider.getInstructors({ instructor_id: 1 }).then((res) => {
+      const data = res.data;
+      setSelectedInstructor(data.data[0]);
+    });
+    apiProvider.getQuestions().then((res) => {
+      setQuestionsData(res.data.data);
+    });
   }, []);
 
-  // This would initiate the selected Instructor
   React.useEffect(() => {
-    if (JSON.stringify(selectedQuestions) === "{}") {
-      return;
+    if (selectedInstructor.question_1) {
+      setQuestion1(selectedInstructor.question_1);
     }
-    apiProvider.getUniqueQuestions({
-      question_1: selectedQuestions.question_1,
-      question_2: selectedQuestions.question_2,
-      question_3: selectedQuestions.question_3,
-      question_4: selectedQuestions.question_4,
-      question_5: selectedQuestions.question_5
-    }).then((res) => {
-      const data = res.data;
-      console.log(data.data)
-      setQuestionsData(data.data);
-    });
-    // eslint-disable-next-line
-  }, [selectedQuestions]);
+    if (selectedInstructor.question_2) {
+      setQuestion2(selectedInstructor.question_2);
+    }
+    if (selectedInstructor.question_3) {
+      setQuestion3(selectedInstructor.question_3);
+    }
+    if (selectedInstructor.question_4) {
+      setQuestion4(selectedInstructor.question_4);
+    }
+    if (selectedInstructor.question_5) {
+      setQuestion5(selectedInstructor.question_5);
+    }
+  }, [selectedInstructor]);
 
   // success notification bar
   React.useEffect(() => {
@@ -62,37 +64,63 @@ const Assignments = () => {
     }
   }, [updateSuccess]);
 
+  // check if question values are different from original instructor's questions
+  React.useEffect(() => {
+    if (
+      JSON.stringify(selectedInstructor.question_1) ===
+        JSON.stringify(question1) ||
+      JSON.stringify(selectedInstructor.question_2) ===
+        JSON.stringify(question2) ||
+      JSON.stringify(selectedInstructor.question_3) ===
+        JSON.stringify(question3) ||
+      JSON.stringify(selectedInstructor.question_4) ===
+        JSON.stringify(question4) ||
+      JSON.stringify(selectedInstructor.question_5) ===
+        JSON.stringify(question5)
+    ) {
+      setValuesChanged(true);
+    } else {
+      setValuesChanged(false);
+    }
+    // eslint-disable-next-line
+  }, [question1, question2, question3, question4, question5]);
+
   function handleSelectChange(e) {
     switch (e.target.id) {
       case "q1":
-        this.setState({
-          selectedQuestions: e.target.value
-        });
-        setQuestionsData(selectedQuestions);
+        setQuestion1(
+          questionsData.find((val) => {
+            return val.question_body === e.target.value;
+          })
+        );
         break;
       case "q2":
-        this.setState({
-          selectedQuestions: e.target.value
-        });
-        setQuestionsData(selectedQuestions);
+        setQuestion2(
+          questionsData.find((val) => {
+            return val.question_body === e.target.value;
+          })
+        );
         break;
       case "q3":
-        this.setState({
-          selectedQuestions: e.target.value
-        });
-        setQuestionsData(selectedQuestions);
+        setQuestion3(
+          questionsData.find((val) => {
+            return val.question_body === e.target.value;
+          })
+        );
         break;
       case "q4":
-        this.setState({
-          selectedQuestions: e.target.value
-        });
-        setQuestionsData(selectedQuestions);
+        setQuestion4(
+          questionsData.find((val) => {
+            return val.question_body === e.target.value;
+          })
+        );
         break;
       case "q5":
-        this.setState({
-          selectedQuestions: e.target.value
-        });
-        setQuestionsData(selectedQuestions);
+        setQuestion5(
+          questionsData.find((val) => {
+            return val.question_body === e.target.value;
+          })
+        );
         break;
       default:
         break;
@@ -100,19 +128,19 @@ const Assignments = () => {
   }
 
   function updateDungeons() {
-    var promiseArr = questionsData.map((ans) => {
-      const conditions = {
-        instructor_id: 1,
-      };
-      const data = {
-        ...ans,
-        conditions,
-      };
-      return apiProvider.updateDungeon(data);
-    });
-    Promise.all(promiseArr).then((values) => {
+    const conditions = {
+      instructor_id: 1,
+    };
+    const data = {
+      question_1: question1,
+      question_2: question2,
+      question_3: question3,
+      question_4: question4,
+      question_5: question5,
+      conditions,
+    };
+    apiProvider.updateInstructor(data).then((val) => {
       setUpdateSuccess(true);
-      setQuestionsData(JSON.parse(JSON.stringify(questionsData)));
     });
   }
 
@@ -136,86 +164,62 @@ const Assignments = () => {
           />
         </Row>
 
-        {/* Question 1 Select */}
-        <InputGroup className="mb-3">
-          <InputGroupAddon type="prepend">
-            <InputGroupText>Question #1</InputGroupText>
-          </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="q1">
-            {questionsData.map((val) => (
-              <option key={val.question_id} value={val.question_body}>
-                {val.question_body}
-              </option>
-            ))}
-          </FormSelect>
-        </InputGroup>
-
-        {/* Question 2 Select */}
-        <InputGroup className="mb-3">
-          <InputGroupAddon type="prepend">
-            <InputGroupText>Question #2</InputGroupText>
-          </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="q2">
-            {questionsData.map((val) => (
-              <option key={val.question_id} value={val.question_body}>
-                {val.question_body}
-              </option>
-            ))}
-          </FormSelect>
-        </InputGroup>
-
-        {/* Question 3 Select */}
-        <InputGroup className="mb-3">
-          <InputGroupAddon type="prepend">
-            <InputGroupText>Question #3</InputGroupText>
-          </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="q3">
-            {questionsData.map((val) => (
-              <option key={val.question_id} value={val.question_body}>
-                {val.question_body}
-              </option>
-            ))}
-          </FormSelect>
-        </InputGroup>
-
-        {/* Question 4 Select */}
-        <InputGroup className="mb-3">
-          <InputGroupAddon type="prepend">
-            <InputGroupText>Question #4</InputGroupText>
-          </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="q4">
-            {questionsData.map((val) => (
-              <option key={val.question_id} value={val.question_body}>
-                {val.question_body}
-              </option>
-            ))}
-          </FormSelect>
-        </InputGroup>
-
-        {/* Question 5 Select */}
-        <InputGroup className="mb-3">
-          <InputGroupAddon type="prepend">
-            <InputGroupText>Question #5</InputGroupText>
-          </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="q5">
-            {questionsData.map((val) => (
-              <option key={val.question_id} value={val.question_body}>
-                {val.question_body}
-              </option>
-            ))}
-          </FormSelect>
-        </InputGroup>
+        {questionArray.map((questionState, idx) => {
+          return (
+            <InputGroup className="mb-3">
+              <InputGroupAddon type="prepend">
+                <InputGroupText>Question {`#${idx + 1}`}</InputGroupText>
+              </InputGroupAddon>
+              <FormSelect
+                size="lg"
+                onChange={handleSelectChange}
+                id={`q${idx + 1}`}
+                value={questionState && questionState.question_body}
+              >
+                <option>Select a question</option>
+                {questionsData
+                  .filter((val) => {
+                    if (JSON.stringify(val) === JSON.stringify(questionState)) {
+                      return true;
+                    } else if (
+                      questionArray.reduce((accum, curr) => {
+                        return (
+                          accum || JSON.stringify(curr) === JSON.stringify(val)
+                        );
+                      }, false)
+                    ) {
+                      return false;
+                    } else return true;
+                  })
+                  .map((val) => {
+                    return (
+                      <option key={val.question_id} value={val.question_body}>
+                        {val.question_body}
+                      </option>
+                    );
+                  })}
+              </FormSelect>
+            </InputGroup>
+          );
+        })}
 
         <CardHeader className="border-bottom">
-            <Button classname = "pr-4"
-            /*disabled={
-                JSON.stringify(instructorsData) ===
-                JSON.stringify(copyInstructorsData)
-            }*/
+          <Button
+            disabled={
+              // check for duplicates
+              questionArray.length !==
+                new Set(questionArray.map((val) => JSON.stringify(val))).size ||
+              // make sure all questions have values
+              questionArray.reduce((accum, curr) => {
+                return accum || !curr || JSON.stringify(curr) === "{}";
+              }, false) ||
+              // check that selected questions are different from original values
+              !valuesChanged
+            }
             onClick={updateDungeons}
-            >
+          >
             Update
-            </Button>
+          </Button>
         </CardHeader>
       </Container>
     </React.Fragment>

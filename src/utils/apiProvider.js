@@ -49,7 +49,7 @@ export default {
     });
     return request;
   },
-  getDungeonQuestions: (params) => {
+  getInstructors: (params) => {
     const request = axios.get(`${process.env.REACT_APP_API}/instructor`, {
       params: params,
     });
