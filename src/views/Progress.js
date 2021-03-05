@@ -14,6 +14,7 @@ import {
 } from "shards-react";
 import apiProvider from "../utils/apiProvider";
 import PageTitle from "../components/common/PageTitle";
+import PlayerProgress from "../components/blog/PlayerProgress";
 
 export default function Progress(props) {
   const [playersData, setPlayersData] = React.useState([]);
@@ -125,9 +126,7 @@ export default function Progress(props) {
           <CardHeader className="border-bottom">
             <h6 className="m-0">Overall Performance</h6>
           </CardHeader>
-          <CardBody className="d-flex py-0">
-            
-          </CardBody>
+          <PlayerProgress />
           </Card>
         </CardGroup>
       </Container>
