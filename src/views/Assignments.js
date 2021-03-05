@@ -9,6 +9,7 @@ import {
   Button,
   CardHeader,
   Alert,
+  FormCheckbox,
 } from "shards-react";
 
 import apiProvider from "../utils/apiProvider";
@@ -26,9 +27,10 @@ const Assignments = () => {
   const [question4, setQuestion4] = React.useState({});
   const [question5, setQuestion5] = React.useState({});
   const questionArray = [question1, question2, question3, question4, question5];
+  const [dungeonLocked, setDungeonLocked] = React.useState(false);
 
   React.useEffect(() => {
-    apiProvider.getInstructors({ instructor_id: 1 }).then((res) => {
+    apiProvider.getInstructors().then((res) => {
       const data = res.data;
       setSelectedInstructor(data.data[0]);
     });
@@ -39,21 +41,44 @@ const Assignments = () => {
 
   React.useEffect(() => {
     if (selectedInstructor.question_1) {
-      setQuestion1(selectedInstructor.question_1);
+      setQuestion1(
+        questionsData.find((val) => {
+          return val.question_id === selectedInstructor.question_1;
+        })
+      );
     }
     if (selectedInstructor.question_2) {
-      setQuestion2(selectedInstructor.question_2);
+      setQuestion2(
+        questionsData.find((val) => {
+          return val.question_id === selectedInstructor.question_2;
+        })
+      );
     }
     if (selectedInstructor.question_3) {
-      setQuestion3(selectedInstructor.question_3);
+      setQuestion3(
+        questionsData.find((val) => {
+          return val.question_id === selectedInstructor.question_3;
+        })
+      );
     }
     if (selectedInstructor.question_4) {
-      setQuestion4(selectedInstructor.question_4);
+      setQuestion4(
+        questionsData.find((val) => {
+          return val.question_id === selectedInstructor.question_4;
+        })
+      );
     }
     if (selectedInstructor.question_5) {
-      setQuestion5(selectedInstructor.question_5);
+      setQuestion5(
+        questionsData.find((val) => {
+          return val.question_id === selectedInstructor.question_5;
+        })
+      );
     }
-  }, [selectedInstructor]);
+    if (selectedInstructor.lock) {
+      setDungeonLocked(selectedInstructor.lock);
+    }
+  }, [selectedInstructor, questionsData]);
 
   // success notification bar
   React.useEffect(() => {
@@ -66,24 +91,25 @@ const Assignments = () => {
 
   // check if question values are different from original instructor's questions
   React.useEffect(() => {
-    if (
-      JSON.stringify(selectedInstructor.question_1) ===
-        JSON.stringify(question1) ||
-      JSON.stringify(selectedInstructor.question_2) ===
-        JSON.stringify(question2) ||
-      JSON.stringify(selectedInstructor.question_3) ===
-        JSON.stringify(question3) ||
-      JSON.stringify(selectedInstructor.question_4) ===
-        JSON.stringify(question4) ||
-      JSON.stringify(selectedInstructor.question_5) ===
-        JSON.stringify(question5)
-    ) {
-      setValuesChanged(true);
-    } else {
-      setValuesChanged(false);
+    try {
+      if (
+        selectedInstructor.question_1 !== question1.question_id ||
+        selectedInstructor.question_2 !== question2.question_id ||
+        selectedInstructor.question_3 !== question3.question_id ||
+        selectedInstructor.question_4 !== question4.question_id ||
+        selectedInstructor.question_5 !== question5.question_id ||
+        selectedInstructor.lock !== dungeonLocked
+      ) {
+        setValuesChanged(true);
+      } else {
+        setValuesChanged(false);
+      }
+    } catch (e) {
+      console.log(e);
     }
+
     // eslint-disable-next-line
-  }, [question1, question2, question3, question4, question5]);
+  }, [selectedInstructor, question1, question2, question3, question4, question5, dungeonLocked]);
 
   function handleSelectChange(e) {
     switch (e.target.id) {
@@ -127,20 +153,29 @@ const Assignments = () => {
     }
   }
 
+  function handleLockedCheckbox(e) {
+    setDungeonLocked((prev) => !prev);
+  }
+
   function updateDungeons() {
     const conditions = {
-      instructor_id: 1,
+      instructor_id: selectedInstructor.instructor_id,
     };
     const data = {
-      question_1: question1,
-      question_2: question2,
-      question_3: question3,
-      question_4: question4,
-      question_5: question5,
+      question_1: question1.question_id,
+      question_2: question2.question_id,
+      question_3: question3.question_id,
+      question_4: question4.question_id,
+      question_5: question5.question_id,
+      lock: dungeonLocked,
       conditions,
     };
     apiProvider.updateInstructor(data).then((val) => {
       setUpdateSuccess(true);
+      apiProvider.getInstructors().then((res) => {
+        const data = res.data;
+        setSelectedInstructor(data.data[0]);
+      });
     });
   }
 
@@ -166,7 +201,7 @@ const Assignments = () => {
 
         {questionArray.map((questionState, idx) => {
           return (
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" key={idx}>
               <InputGroupAddon type="prepend">
                 <InputGroupText>Question {`#${idx + 1}`}</InputGroupText>
               </InputGroupAddon>
@@ -202,6 +237,13 @@ const Assignments = () => {
             </InputGroup>
           );
         })}
+        <FormCheckbox
+          className="mb-3"
+          checked={dungeonLocked}
+          onChange={handleLockedCheckbox}
+        >
+          Locked
+        </FormCheckbox>
 
         <CardHeader className="border-bottom">
           <Button
