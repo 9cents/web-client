@@ -43,6 +43,18 @@ export default {
     });
     return request;
   },
+  getProgressData: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/progress`, {
+      params: params,
+    });
+    return request;
+  },
+  getAccuracyData: (params) => {
+    const request = axios.get(`${process.env.REACT_APP_API}/accuracy`, {
+      params: params,
+    });
+    return request;
+  },
   getUniqueQuestions: (params) => {
     const request = axios.get(`${process.env.REACT_APP_API}/dungeonquestion`, {
       params: params,

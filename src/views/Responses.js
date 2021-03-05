@@ -28,6 +28,7 @@ export default function Responses(props) {
   }, []);
 
   React.useEffect(() => {
+    console.log(JSON.stringify(selectedPlayer));
     if (JSON.stringify(selectedPlayer) !== "{}") {
       apiProvider
         .getResponseData({ player_id: selectedPlayer.player_id })
@@ -89,7 +90,7 @@ export default function Responses(props) {
                   <th scope="col" className="border-0" style={{ width: "40%" }}>
                     Answer
                   </th>
-                  <th scope="col" className="border-0" style={{ width: "10%" }}>
+                  <th scope="col" className="border-0" style={{ width: "20%" }}>
                     Correct
                   </th>
                 </tr>

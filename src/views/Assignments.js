@@ -193,7 +193,7 @@ const Assignments = () => {
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
-            title="Dungeons"
+            title="Assignments"
             subtitle="Special Tower"
             className="text-sm-left"
           />
@@ -245,24 +245,22 @@ const Assignments = () => {
           Locked
         </FormCheckbox>
 
-        <CardHeader className="border-bottom">
-          <Button
-            disabled={
-              // check for duplicates
-              questionArray.length !==
-                new Set(questionArray.map((val) => JSON.stringify(val))).size ||
-              // make sure all questions have values
-              questionArray.reduce((accum, curr) => {
-                return accum || !curr || JSON.stringify(curr) === "{}";
-              }, false) ||
-              // check that selected questions are different from original values
-              !valuesChanged
-            }
-            onClick={updateDungeons}
-          >
-            Update
-          </Button>
-        </CardHeader>
+        <Button className="float-right"
+          disabled={
+            // check for duplicates
+            questionArray.length !==
+              new Set(questionArray.map((val) => JSON.stringify(val))).size ||
+            // make sure all questions have values
+            questionArray.reduce((accum, curr) => {
+              return accum || !curr || JSON.stringify(curr) === "{}";
+            }, false) ||
+            // check that selected questions are different from original values
+            !valuesChanged
+          }
+          onClick={updateDungeons}
+        >
+          Update
+        </Button>
       </Container>
     </React.Fragment>
   );

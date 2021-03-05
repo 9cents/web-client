@@ -50,6 +50,11 @@ export default function() {
       title: "Assignments",
       htmlBefore: '<i class="material-icons">table_chart</i>',
       to: "/assignments"
+    },
+    {
+      title: "Progress",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/progress"
     }
   ];
 }

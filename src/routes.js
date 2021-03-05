@@ -17,6 +17,7 @@ import BlogPosts from "./views/BlogPosts";
 import Questions from "./views/Questions";
 import Responses from "./views/Responses";
 import Assignments from "./views/Assignments";
+import Progress from "./views/Progress";
 
 export default [
   {
@@ -74,5 +75,10 @@ export default [
     path: "/assignments",
     layout: DefaultLayout,
     component: Assignments
+  },
+  {
+    path: "/progress",
+    layout: DefaultLayout,
+    component: Progress
   }
 ];
