@@ -98,13 +98,25 @@ export default function Progress(props) {
               <table className="table mb-0">
                 <thead className="bg-light">
                   <tr>
-                    <th scope="col" className="border-0" style={{ width: "20%" }}>
+                    <th
+                      scope="col"
+                      className="border-0"
+                      style={{ width: "20%" }}
+                    >
                       Tower
                     </th>
-                    <th scope="col" className="border-0" style={{ width: "20%" }}>
+                    <th
+                      scope="col"
+                      className="border-0"
+                      style={{ width: "20%" }}
+                    >
                       Level
                     </th>
-                    <th scope="col" className="border-0" style={{ width: "10%" }}>
+                    <th
+                      scope="col"
+                      className="border-0"
+                      style={{ width: "10%" }}
+                    >
                       Accuracy
                     </th>
                   </tr>
@@ -113,7 +125,9 @@ export default function Progress(props) {
                   {progressData.map((val) => (
                     <tr>
                       <td>{val.tower_name}</td>
-                      <td>{val.level}/{val.total}</td>
+                      <td>
+                        {val.level}/{val.total}
+                      </td>
                       <td>{val.accuracy}%</td>
                     </tr>
                   ))}
@@ -123,10 +137,10 @@ export default function Progress(props) {
           </Card>
 
           <Card small className="text-center mb-4" style={{ width: "45%" }}>
-          <CardHeader className="border-bottom">
-            <h6 className="m-0">Overall Performance</h6>
-          </CardHeader>
-          <PlayerProgress />
+            <CardHeader className="border-bottom">
+              <h6 className="m-0">Overall Performance</h6>
+            </CardHeader>
+            <PlayerProgress accuracyData={accuracyData} />
           </Card>
         </CardGroup>
       </Container>
