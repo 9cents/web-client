@@ -1,14 +1,14 @@
 import axios from "axios";
 export default {
   // called when the user attempts to login
-  login: ( username, password ) => {
-    const request = axios.get(`${process.env.REACT_APP_API}/loginweb`, {
-      params: { name: username, password: password },
+  login: (username, password) => {
+    const request = axios.post(`${process.env.REACT_APP_API}/loginweb`, {
+      name: username,
+      password: password,
     });
-    request
-      .then(({ data }) => {
-        localStorage.setItem("token", data.jwt);
-      });
+    request.then(({ data }) => {
+      localStorage.setItem("token", data.jwt);
+    });
     return request;
   },
   // called when the user attempts to logout
