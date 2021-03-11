@@ -46,7 +46,9 @@ export default function Progress(props) {
       apiProvider
         .getAccuracyData({ player_id: selectedPlayer.player_id })
         .then((res) => {
-          setAccuracyData(res.data.data);
+          if (res.data.data[0]) {
+            setAccuracyData(res.data.data[0]);
+          }
         });
     }
   }, [selectedPlayer]);
