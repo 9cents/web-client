@@ -55,12 +55,6 @@ export default {
     });
     return request;
   },
-  getUniqueQuestions: (params) => {
-    const request = axios.get(`${process.env.REACT_APP_API}/dungeonquestion`, {
-      params: params,
-    });
-    return request;
-  },
   getInstructors: (params) => {
     const request = axios.get(`${process.env.REACT_APP_API}/instructor`, {
       params: params,
