@@ -62,7 +62,7 @@ export default function Login() {
             }}
           />
         </Form.Group>
-        {/* Hard Coded for now, need to remove! */}
+
         <Button
           block
           size="lg"
