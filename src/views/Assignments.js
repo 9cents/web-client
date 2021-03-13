@@ -14,6 +14,7 @@ import {
 import apiProvider from "../utils/apiProvider";
 
 import PageTitle from "../components/common/PageTitle";
+import SocialMedia from "./SocialMedia";
 
 const Assignments = () => {
   const [questionsData, setQuestionsData] = React.useState([]);
@@ -27,6 +28,7 @@ const Assignments = () => {
   const [question5, setQuestion5] = React.useState({});
   const questionArray = [question1, question2, question3, question4, question5];
   const [dungeonLocked, setDungeonLocked] = React.useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
 
   React.useEffect(() => {
     apiProvider.getInstructors().then((res) => {
@@ -260,6 +262,10 @@ const Assignments = () => {
         >
           Update
         </Button>
+        <Button className="btn-success" onClick={() => setModalShow(true)}>
+          Send
+        </Button>
+        <SocialMedia show={modalShow} onHide={() => setModalShow(false)} />
       </Container>
     </React.Fragment>
   );
