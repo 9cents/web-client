@@ -22,7 +22,7 @@ export default function Login() {
     authProvider
       .login(username, password)
       .then((response) => {
-        history.push("/blog-overview")
+        history.push("/progress")
       })
       .catch((error) => {
         if (error.response.status === 401) {
