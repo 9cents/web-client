@@ -20,13 +20,13 @@ import apiProvider from "../utils/apiProvider";
 import PageTitle from "../components/common/PageTitle";
 
 const Questions = () => {
-  const [selectedWorld, setSelectedWorld] = React.useState({});
+  const [selectedWorld, setSelectedWorld] = React.useState(null);
   const [worldsData, setWorldsData] = React.useState([]);
-  const [selectedTower, setSelectedTower] = React.useState({});
+  const [selectedTower, setSelectedTower] = React.useState(null);
   const [towersData, setTowersData] = React.useState([]);
-  const [selectedLevel, setSelectedLevel] = React.useState({});
+  const [selectedLevel, setSelectedLevel] = React.useState(null);
   const [levelsData, setLevelsData] = React.useState([]);
-  const [selectedQuestion, setSelectedQuestion] = React.useState({});
+  const [selectedQuestion, setSelectedQuestion] = React.useState(null);
   const [questionsData, setQuestionsData] = React.useState([]);
   const [answersData, setAnswersData] = React.useState([]);
   const [copyAnswersData, setCopyAnswersData] = React.useState([]);
@@ -44,7 +44,7 @@ const Questions = () => {
   }, []);
 
   React.useEffect(() => {
-    if (JSON.stringify(selectedWorld) === "{}") {
+    if (!selectedWorld) {
       return;
     }
     apiProvider.getTowers({ world_id: selectedWorld.world_id }).then((res) => {
@@ -55,7 +55,7 @@ const Questions = () => {
   }, [selectedWorld]);
 
   React.useEffect(() => {
-    if (JSON.stringify(selectedTower) === "{}") {
+    if (!selectedTower) {
       return;
     }
     apiProvider.getLevels({ tower_id: selectedTower.tower_id }).then((res) => {
@@ -66,7 +66,7 @@ const Questions = () => {
   }, [selectedTower]);
 
   React.useEffect(() => {
-    if (JSON.stringify(selectedLevel) === "{}") {
+    if (!selectedLevel) {
       return;
     }
     apiProvider
@@ -80,7 +80,7 @@ const Questions = () => {
 
   // get updated questions
   React.useEffect(() => {
-    if (JSON.stringify(selectedQuestion) === "{}") {
+    if (!selectedQuestion) {
       return;
     }
     apiProvider
