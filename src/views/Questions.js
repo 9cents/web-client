@@ -45,6 +45,8 @@ const Questions = () => {
 
   React.useEffect(() => {
     if (!selectedWorld) {
+      setTowersData([])
+      setSelectedTower(null)
       return;
     }
     apiProvider.getTowers({ world_id: selectedWorld.world_id }).then((res) => {
@@ -56,6 +58,8 @@ const Questions = () => {
 
   React.useEffect(() => {
     if (!selectedTower) {
+      setLevelsData([])
+      setSelectedLevel(null)
       return;
     }
     apiProvider.getLevels({ tower_id: selectedTower.tower_id }).then((res) => {
@@ -67,6 +71,8 @@ const Questions = () => {
 
   React.useEffect(() => {
     if (!selectedLevel) {
+      setQuestionsData([])
+      setSelectedQuestion(null)
       return;
     }
     apiProvider
@@ -81,6 +87,8 @@ const Questions = () => {
   // get updated questions
   React.useEffect(() => {
     if (!selectedQuestion) {
+      setAnswersData([])
+      setCopyAnswersData([])
       return;
     }
     apiProvider
