@@ -44,7 +44,7 @@ export default {
     return request;
   },
   getProgressData: (params) => {
-    const request = axios.get(`${process.env.REACT_APP_API}/progress`, {
+    const request = axios.get(`${process.env.REACT_APP_API}/progressreport`, {
       params: params,
     });
     return request;
