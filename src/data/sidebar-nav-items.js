@@ -19,6 +19,11 @@ export default function() {
       title: "Assignments",
       htmlBefore: '<i class="material-icons">alarm</i>',
       to: "/assignments"
+    },
+    {
+      title: "Logout",
+      htmlBefore: '<i class="material-icons text-danger">logout</i>',
+      to: "/"
     }
   ];
 }
