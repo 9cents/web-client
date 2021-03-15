@@ -65,6 +65,10 @@ export default {
     const request = axios.put(`${process.env.REACT_APP_API}/answer`, data);
     return request;
   },
+  updateQuestion: (data) => {
+    const request = axios.put(`${process.env.REACT_APP_API}/question`, data);
+    return request
+  },
   updateInstructor: (data) => {
     const request = axios.put(`${process.env.REACT_APP_API}/instructor`, data)
     return request
