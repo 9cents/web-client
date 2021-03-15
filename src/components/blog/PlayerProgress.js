@@ -57,7 +57,7 @@ export default function PlayerProgressChart(props) {
             className="blog-users-by-device m-auto"
           />
         ) : (
-          <a>No data to display</a>
+          <p>No data to display</p>
         )}
       </CardBody>
     </Card>
