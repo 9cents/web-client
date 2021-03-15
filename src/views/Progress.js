@@ -18,21 +18,26 @@ import PlayerProgress from "../components/blog/PlayerProgress";
 
 export default function Progress(props) {
   const [playersData, setPlayersData] = React.useState([]);
-  const [selectedPlayer, setSelectedPlayer] = React.useState({});
+  const [selectedPlayer, setSelectedPlayer] = React.useState(null);
   const [progressData, setProgressData] = React.useState([]);
   const [accuracyData, setAccuracyData] = React.useState([]);
 
   React.useEffect(() => {
     apiProvider.getPlayers().then((res) => {
       if (res.data.data[0]) {
-        setPlayersData(res.data.data);
-        setSelectedPlayer(res.data.data[0]);
+        var data = JSON.parse(JSON.stringify(res.data.data));
+        data.sort((a, b) => {
+          console.log(a.player_name);
+          return a.player_name > b.player_name;
+        });
+        setPlayersData(data);
+        setSelectedPlayer(data[0]);
       }
     });
   }, []);
 
   React.useEffect(() => {
-    if (JSON.stringify(selectedPlayer) !== "{}") {
+    if (selectedPlayer) {
       apiProvider
         .getProgressData({ player_id: selectedPlayer.player_id })
         .then((res) => {
@@ -42,12 +47,14 @@ export default function Progress(props) {
   }, [selectedPlayer]);
 
   React.useEffect(() => {
-    if (JSON.stringify(selectedPlayer) !== "{}") {
+    if (selectedPlayer) {
       apiProvider
         .getAccuracyData({ player_id: selectedPlayer.player_id })
         .then((res) => {
           if (res.data.data[0]) {
             setAccuracyData(res.data.data[0]);
+          } else {
+            setAccuracyData({});
           }
         });
     }
