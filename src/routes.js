@@ -7,12 +7,6 @@ import { DefaultLayout, LoginLayout } from "./layouts";
 // Route Views
 import Login from "./views/Login";
 import Overview from "./views/Overview";
-import UserProfileLite from "./views/UserProfileLite";
-import AddNewPost from "./views/AddNewPost";
-import Errors from "./views/Errors";
-import ComponentsOverview from "./views/ComponentsOverview";
-import Tables from "./views/Tables";
-import BlogPosts from "./views/BlogPosts";
 import Questions from "./views/Questions";
 import Responses from "./views/Responses";
 import Assignments from "./views/Assignments";
@@ -32,34 +26,9 @@ export default [
     component: Overview
   },
   {
-    path: "/user-profile-lite",
+    path: "/progress",
     layout: DefaultLayout,
-    component: UserProfileLite
-  },
-  {
-    path: "/add-new-post",
-    layout: DefaultLayout,
-    component: AddNewPost
-  },
-  {
-    path: "/errors",
-    layout: DefaultLayout,
-    component: Errors
-  },
-  {
-    path: "/components-overview",
-    layout: DefaultLayout,
-    component: ComponentsOverview
-  },
-  {
-    path: "/tables",
-    layout: DefaultLayout,
-    component: Tables
-  },
-  {
-    path: "/blog-posts",
-    layout: DefaultLayout,
-    component: BlogPosts
+    component: Progress
   },
   {
     path: "/questions",
@@ -75,11 +44,6 @@ export default [
     path: "/assignments",
     layout: DefaultLayout,
     component: Assignments
-  },
-  {
-    path: "/progress",
-    layout: DefaultLayout,
-    component: Progress
   },
   {
     path: "/instructions",
