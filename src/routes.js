@@ -6,7 +6,7 @@ import { DefaultLayout, LoginLayout } from "./layouts";
 
 // Route Views
 import Login from "./views/Login";
-import BlogOverview from "./views/BlogOverview";
+import Overview from "./views/Overview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
@@ -17,6 +17,7 @@ import Questions from "./views/Questions";
 import Responses from "./views/Responses";
 import Assignments from "./views/Assignments";
 import Progress from "./views/Progress";
+import Instructions from "./views/Instructions";
 
 export default [
   {
@@ -26,9 +27,9 @@ export default [
     //component: () => <Redirect to="/blog-overview" />
   },
   {
-    path: "/blog-overview",
+    path: "/overview",
     layout: DefaultLayout,
-    component: BlogOverview
+    component: Overview
   },
   {
     path: "/user-profile-lite",
@@ -79,5 +80,10 @@ export default [
     path: "/progress",
     layout: DefaultLayout,
     component: Progress
+  },
+  {
+    path: "/instructions",
+    layout: DefaultLayout,
+    component: Instructions
   }
 ];
