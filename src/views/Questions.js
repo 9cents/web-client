@@ -190,6 +190,8 @@ const Questions = () => {
         };
         delete data["answer_id"];
         return apiProvider.updateAnswer(data);
+      } else {
+        return true;
       }
     });
 
