@@ -22,6 +22,7 @@ export default function Progress(props) {
   const [progressData, setProgressData] = React.useState([]);
   const [accuracyData, setAccuracyData] = React.useState([]);
 
+  // upon initial render, get all players information and set initial value of selected player
   React.useEffect(() => {
     apiProvider.getPlayers().then((res) => {
       if (res.data.data[0]) {
@@ -36,6 +37,7 @@ export default function Progress(props) {
     });
   }, []);
 
+  // when selected player changes, get progress data for that player
   React.useEffect(() => {
     if (selectedPlayer) {
       apiProvider
@@ -46,6 +48,7 @@ export default function Progress(props) {
     }
   }, [selectedPlayer]);
 
+  // when seelcted player changes, get accuracy data for that player
   React.useEffect(() => {
     if (selectedPlayer) {
       apiProvider
@@ -60,6 +63,7 @@ export default function Progress(props) {
     }
   }, [selectedPlayer]);
 
+  // handles changing of selected palyer
   function handleSelectChange(e) {
     switch (e.target.id) {
       case "player":
@@ -102,6 +106,7 @@ export default function Progress(props) {
         </InputGroup>
 
         <CardGroup>
+          {/* Table of progress information */}
           <Card small className="mb-4" style={{ width: "45%" }}>
             <CardBody className="p-0 pb-3">
               <table className="table mb-0">
@@ -144,7 +149,7 @@ export default function Progress(props) {
               </table>
             </CardBody>
           </Card>
-
+          {/* Pie chart for overall performance */}
           <Card small className="text-center mb-4" style={{ width: "45%" }}>
             <CardHeader className="border-bottom">
               <h6 className="m-0">Overall Performance</h6>

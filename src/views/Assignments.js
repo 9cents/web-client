@@ -30,6 +30,7 @@ const Assignments = () => {
   const [dungeonLocked, setDungeonLocked] = React.useState(false);
   const [modalShow, setModalShow] = React.useState(false);
 
+  // upon initial render, get instructor information and all questions information
   React.useEffect(() => {
     apiProvider.getInstructors().then((res) => {
       const data = res.data;
@@ -40,6 +41,7 @@ const Assignments = () => {
     });
   }, []);
 
+  // when selected instructor changes or question data changes, set state variables that track the individual 5 questions
   React.useEffect(() => {
     if (selectedInstructor.question_1) {
       setQuestion1(
@@ -110,8 +112,17 @@ const Assignments = () => {
     }
 
     // eslint-disable-next-line
-  }, [selectedInstructor, question1, question2, question3, question4, question5, dungeonLocked]);
+  }, [
+    selectedInstructor,
+    question1,
+    question2,
+    question3,
+    question4,
+    question5,
+    dungeonLocked,
+  ]);
 
+  // handles changing of each individual 5 selected questions
   function handleSelectChange(e) {
     switch (e.target.id) {
       case "q1":
@@ -246,7 +257,8 @@ const Assignments = () => {
           Locked
         </FormCheckbox>
 
-        <Button className="float-right"
+        <Button
+          className="float-right"
           disabled={
             // check for duplicates
             questionArray.length !==

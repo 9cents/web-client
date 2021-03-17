@@ -29,16 +29,21 @@ const Questions = () => {
   const [towersData, setTowersData] = React.useState([]);
   const [selectedLevel, setSelectedLevel] = React.useState(null);
   const [levelsData, setLevelsData] = React.useState([]);
+  // question related state variables
   const [selectedQuestion, setSelectedQuestion] = React.useState(null);
   const [questionsData, setQuestionsData] = React.useState([]);
   const [copySelectedQuestion, setCopySelectedQuestion] = React.useState(null);
+  // answer related state variables
   const [answersData, setAnswersData] = React.useState([]);
   const [copyAnswersData, setCopyAnswersData] = React.useState([]);
+  // boolean state variable for showing notification bar at top
   const [updateSuccess, setUpdateSuccess] = React.useState(null);
+  // boolean state variable for if creating new question answers data or editting
   const [isCreateNew, setIsCreateNew] = React.useState(true);
+  // boolean state variable for if new data is valid, used to control if button is disabled
   const [isValidNewData, setIsValidNewData] = React.useState(false);
 
-  // upon render, get world data and select the first world
+  // upon initial render, get world data and select the first world
   React.useEffect(() => {
     apiProvider.getWorlds().then((res) => {
       if (res.data.data[0]) {
@@ -96,6 +101,7 @@ const Questions = () => {
 
   // when selected question changes, get the answers related to that question
   React.useEffect(() => {
+    // if creating new, set valids to empty string
     if (isCreateNew) {
       var template = {
         answer_body: "",
@@ -110,9 +116,9 @@ const Questions = () => {
       setCopySelectedQuestion({ question_body: "" });
       return;
     }
-
+    // if not creating new
     setCopySelectedQuestion(selectedQuestion);
-
+    // if no question selected
     if (!selectedQuestion) {
       setAnswersData([]);
       setCopyAnswersData([]);
@@ -179,6 +185,7 @@ const Questions = () => {
   // send updated question & answers to backend to be updated
   function updateQuestionAndAnswers() {
     // for updating answers
+    // array of promise so that only when all done, show success notification bar 
     var promiseArr = copyAnswersData.map((ans, idx) => {
       if (JSON.stringify(ans) !== JSON.stringify(answersData[idx])) {
         const conditions = {
@@ -233,6 +240,7 @@ const Questions = () => {
       ...copySelectedQuestion,
       level_id: selectedLevel.level_id,
     };
+    // create new question first, then get question id to create the answers
     await apiProvider.updateQuestion(data);
     apiProvider
       .getQuestions({
@@ -408,6 +416,7 @@ const Questions = () => {
           </CardHeader>
           <CardBody>
             <Row>
+              {/* Question body section */}
               <CardTitle className="px-4 pb-4 pt-0" style={{ width: "100%" }}>
                 {copySelectedQuestion && (
                   <FormTextarea
@@ -429,12 +438,14 @@ const Questions = () => {
                 )}
               </CardTitle>
             </Row>
+            {/* Answer body section */}
             {copyAnswersData.map((val, idx) => (
               <Row
                 key={val.answer_id}
                 className="px-4 pb-2"
                 style={{ alignItems: "center" }}
               >
+                {/* Uses form radio to indicate/select which is marked 'correct' */}
                 <FormRadio
                   inline
                   checked={val.correct}
