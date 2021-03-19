@@ -18,6 +18,7 @@ export default function Responses(props) {
   const [selectedPlayer, setSelectedPlayer] = React.useState({});
   const [responsesData, setResponsesData] = React.useState([]);
 
+  // upon initial render, get all players information and set initial value to first
   React.useEffect(() => {
     apiProvider.getPlayers().then((res) => {
       if (res.data.data[0]) {
@@ -27,6 +28,7 @@ export default function Responses(props) {
     });
   }, []);
 
+  // when selected player changes, get response data of that player
   React.useEffect(() => {
     console.log(JSON.stringify(selectedPlayer));
     if (JSON.stringify(selectedPlayer) !== "{}") {
@@ -38,6 +40,7 @@ export default function Responses(props) {
     }
   }, [selectedPlayer]);
 
+  // handles the changing of selected player
   function handleSelectChange(e) {
     switch (e.target.id) {
       case "player":

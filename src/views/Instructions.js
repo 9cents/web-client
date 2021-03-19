@@ -5,7 +5,6 @@ import {
     Col,
     Card,
     CardBody,
-    Badge,
   } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
