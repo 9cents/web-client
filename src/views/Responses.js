@@ -30,11 +30,12 @@ export default function Responses(props) {
 
   // when selected player changes, get response data of that player
   React.useEffect(() => {
-    console.log(JSON.stringify(selectedPlayer));
+    // console.log(JSON.stringify(selectedPlayer));
     if (JSON.stringify(selectedPlayer) !== "{}") {
       apiProvider
         .getResponseData({ player_id: selectedPlayer.player_id })
         .then((res) => {
+          console.log(res.data.data);
           setResponsesData(res.data.data);
         });
     }
@@ -103,7 +104,7 @@ export default function Responses(props) {
                   <tr>
                     <td>{val.question_body}</td>
                     <td>{val.answer_body}</td>
-                    <td>{val.correct}</td>
+                    <td>{val.correct ? "Correct" : "Wrong"}</td>
                   </tr>
                 ))}
               </tbody>
