@@ -95,7 +95,11 @@ const Questions = () => {
         const data = res.data;
         setQuestionsData(data.data);
         setSelectedQuestion(data.data[0]);
-        setIsCreateNew(true);
+        if (!data.data[0]) {
+          setIsCreateNew(true);
+        } else {
+          setIsCreateNew(false);
+        }
       });
   }, [selectedLevel]);
 
@@ -124,6 +128,7 @@ const Questions = () => {
       setCopyAnswersData([]);
       return;
     }
+
     apiProvider
       .getAnswers({ question_id: selectedQuestion.question_id })
       .then((res) => {
