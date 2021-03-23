@@ -39,7 +39,7 @@ const Questions = () => {
   // boolean state variable for showing notification bar at top
   const [updateSuccess, setUpdateSuccess] = React.useState(null);
   // boolean state variable for if creating new question answers data or editting
-  const [isCreateNew, setIsCreateNew] = React.useState(true);
+  const [isCreateNew, setIsCreateNew] = React.useState(false);
   // boolean state variable for if new data is valid, used to control if button is disabled
   const [isValidNewData, setIsValidNewData] = React.useState(false);
 
@@ -185,7 +185,7 @@ const Questions = () => {
   // send updated question & answers to backend to be updated
   function updateQuestionAndAnswers() {
     // for updating answers
-    // array of promise so that only when all done, show success notification bar 
+    // array of promise so that only when all done, show success notification bar
     var promiseArr = copyAnswersData.map((ans, idx) => {
       if (JSON.stringify(ans) !== JSON.stringify(answersData[idx])) {
         const conditions = {
@@ -248,7 +248,6 @@ const Questions = () => {
       })
       .then((res) => {
         var qnsObj = res.data.data[0];
-        console.log(qnsObj);
 
         var promiseArr = copyAnswersData.map((ans, idx) => {
           const data = {
@@ -266,6 +265,7 @@ const Questions = () => {
             return temp;
           });
           setSelectedQuestion(JSON.parse(JSON.stringify(qnsObj)));
+          setIsCreateNew(false);
         });
       });
   }
@@ -372,17 +372,22 @@ const Questions = () => {
           <InputGroupAddon type="prepend">
             <InputGroupText>Question</InputGroupText>
           </InputGroupAddon>
-          <FormSelect size="lg" onChange={handleSelectChange} id="question">
-            {selectedLevel && (
-              <option value={"Create New Question..."}>
-                Create New Question...
-              </option>
-            )}
+          <FormSelect
+            size="lg"
+            onChange={handleSelectChange}
+            id="question"
+            value={selectedQuestion && selectedQuestion.question_body}
+          >
             {questionsData.map((val) => (
               <option key={val.question_id} value={val.question_body}>
                 {val.question_body}
               </option>
             ))}
+            {selectedLevel && (
+              <option value={"Create New Question..."}>
+                Create New Question...
+              </option>
+            )}
           </FormSelect>
         </InputGroup>
 

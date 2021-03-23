@@ -33,7 +33,7 @@ export default function() {
     {
       title: "Logout",
       htmlBefore: '<i class="material-icons text-danger">logout</i>',
-      to: "/"
+      to: "/logout"
     }
   ];
 }

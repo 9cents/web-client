@@ -28,7 +28,6 @@ export default function Progress(props) {
       if (res.data.data[0]) {
         var data = JSON.parse(JSON.stringify(res.data.data));
         data.sort((a, b) => {
-          console.log(a.player_name);
           return a.player_name > b.player_name;
         });
         setPlayersData(data);
