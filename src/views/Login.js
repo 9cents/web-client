@@ -25,7 +25,7 @@ export default function Login() {
         history.push("/progress");
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           // wrong username/password
           setErrorPrompt("Incorrect username or password. Please try again.");
         } else {
