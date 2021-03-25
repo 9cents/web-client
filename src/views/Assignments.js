@@ -274,7 +274,11 @@ const Assignments = () => {
         >
           Update
         </Button>
-        <Button className="btn-success" onClick={() => setModalShow(true)}>
+        <Button
+          className="btn-success"
+          disabled={selectedInstructor.lock}
+          onClick={() => setModalShow(true)}
+        >
           Send
         </Button>
         <SocialMedia show={modalShow} onHide={() => setModalShow(false)} />
