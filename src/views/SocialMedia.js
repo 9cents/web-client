@@ -2,14 +2,15 @@ import React from "react";
 import { Container, Button } from "shards-react";
 import { Modal, Row, Col } from "react-bootstrap";
 import { IconContext } from "react-icons";
-import { FaFacebook, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 function MydModalWithGrid(props) {
   const text =
     "Hello students! I have made a new assignment for you to complete. Please go to the dungeon to complete it. ";
-  const shareURL = "http://www.example.com/";
+  const shareURL = "https://9cents.github.io/DodgeWare/";
   const twitterURL = `https://twitter.com/intent/tweet?text=${text}`;
   const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${text}`;
+  const whatsappURL = `https://api.whatsapp.com/send?text=${text}`;
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header closeButton>
@@ -33,6 +34,14 @@ function MydModalWithGrid(props) {
                 {/* eslint-disable-next-line */}
                 <a href={facebookURL} target="_blank">
                   <FaFacebook onClick={() => console.log("facebook")} />
+                </a>
+              </IconContext.Provider>
+            </Col>
+            <Col xs={3}>
+              <IconContext.Provider value={{ color: "#4FCE5D", size: "3em" }}>
+                {/* eslint-disable-next-line */}
+                <a href={whatsappURL} target="_blank">
+                  <FaWhatsapp />
                 </a>
               </IconContext.Provider>
             </Col>
