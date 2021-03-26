@@ -141,7 +141,7 @@ export default function Progress(props) {
                       <td>
                         {val.level}/{val.total}
                       </td>
-                      <td>{val.accuracy}%</td>
+                      <td>{val.accuracy.toFixed(2)}%</td>
                     </tr>
                   ))}
                 </tbody>
