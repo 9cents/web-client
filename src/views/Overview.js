@@ -57,7 +57,7 @@ Overview.propTypes = {
 Overview.defaultProps = {
   smallStats: [
     {
-      label: "Students",
+      label: "Players",
       value: "2,390",
       percentage: "4.7%",
       increase: true,
@@ -75,7 +75,7 @@ Overview.defaultProps = {
       ]
     },
     {
-      label: "Questions",
+      label: "Towers",
       value: "182",
       percentage: "12.4",
       increase: true,
@@ -93,7 +93,7 @@ Overview.defaultProps = {
       ]
     },
     {
-      label: "Worlds",
+      label: "Levels",
       value: "8,147",
       percentage: "3.8%",
       increase: false,
@@ -112,7 +112,7 @@ Overview.defaultProps = {
       ]
     },
     {
-      label: "Levels",
+      label: "Questions",
       value: "29",
       percentage: "2.71%",
       increase: false,
@@ -131,7 +131,7 @@ Overview.defaultProps = {
       ]
     },
     {
-      label: "Sections",
+      label: "Responses",
       value: "17,281",
       percentage: "2.4%",
       increase: false,
