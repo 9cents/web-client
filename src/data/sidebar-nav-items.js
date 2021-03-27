@@ -1,10 +1,10 @@
 export default function() {
   return [
-    // {
-    //   title: "Overview",
-    //   htmlBefore: '<i class="material-icons">dashboard</i>',
-    //   to: "/overview"
-    // },
+    {
+      title: "Overview",
+      htmlBefore: '<i class="material-icons">dashboard</i>',
+      to: "/overview"
+    },
     {
       title: "Progress",
       htmlBefore: '<i class="material-icons">timeline</i>',

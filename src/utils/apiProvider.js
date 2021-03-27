@@ -67,10 +67,28 @@ export default {
   },
   updateQuestion: (data) => {
     const request = axios.put(`${process.env.REACT_APP_API}/question`, data);
-    return request
+    return request;
   },
   updateInstructor: (data) => {
-    const request = axios.put(`${process.env.REACT_APP_API}/instructor`, data)
-    return request
-  }
+    const request = axios.put(`${process.env.REACT_APP_API}/instructor`, data);
+    return request;
+  },
+  getCountPlayers: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/countplayers`, data);
+  },
+  getCountTowers: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/counttowers`, data);
+  },
+  getCountLevels: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/countlevels`, data);
+  },
+  getCountQuestions: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/countQuestions`, data);
+  },
+  getCountResponses: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/countresponses`, data);
+  },
+  getQuestionAccuracy: (data) => {
+    return axios.get(`${process.env.REACT_APP_API}/questionaccuracy`, data);
+  },
 };
