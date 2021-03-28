@@ -1,9 +1,9 @@
 {
-  "short_name": "3003 Dashboard",
-  "name": "3003 Dashboard",
+  "short_name": "DodgeWare",
+  "name": "DodgeWare",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "DodgeWare_Logo.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
