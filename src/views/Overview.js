@@ -39,6 +39,7 @@ const Overview = ({ smallStats }) => {
     },
   ];
 
+  // make api request to get all the data needed
   React.useEffect(() => {
     apiProvider.getCountPlayers().then((val) => {
       setNumPlayers(val.data.data);

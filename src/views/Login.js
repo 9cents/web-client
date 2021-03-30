@@ -17,6 +17,7 @@ export default function Login() {
     return username.length > 0 && password.length > 0;
   }
 
+  // make api request to login
   function handleSubmit(event) {
     event.preventDefault();
     authProvider
@@ -39,6 +40,7 @@ export default function Login() {
   return (
     <div className="Login">
       <Form onSubmit={handleSubmit}>
+        {/* Form group for username handling */}
         <Form.Group size="lg" controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -51,6 +53,7 @@ export default function Login() {
             }}
           />
         </Form.Group>
+        {/* Form group for password handling */}
         <Form.Group size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control

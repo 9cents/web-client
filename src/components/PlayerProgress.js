@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardBody } from "shards-react";
 
-import Chart from "../../utils/chart";
+import Chart from "../utils/chart";
 
 export default function PlayerProgressChart(props) {
   const canvasRef = React.createRef();

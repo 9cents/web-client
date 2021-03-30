@@ -165,10 +165,12 @@ const Assignments = () => {
     }
   }
 
+  // handle checkbox state
   function handleLockedCheckbox(e) {
     setDungeonLocked((prev) => !prev);
   }
 
+  // make api requests to update the dungeon information (questions)
   function updateDungeons() {
     const conditions = {
       instructor_id: selectedInstructor.instructor_id,
@@ -193,6 +195,7 @@ const Assignments = () => {
 
   return (
     <React.Fragment>
+      {/* Success notification */}
       <Container fluid className="px-0">
         {updateSuccess && (
           <Alert className="mb-0">
@@ -200,6 +203,7 @@ const Assignments = () => {
           </Alert>
         )}
       </Container>
+      {/* Rest of the body */}
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
@@ -210,7 +214,7 @@ const Assignments = () => {
             className="text-sm-left"
           />
         </Row>
-
+        {/* The 5 questions pickers */}
         {questionArray.map((questionState, idx) => {
           return (
             <InputGroup className="mb-3" key={idx}>
@@ -249,6 +253,7 @@ const Assignments = () => {
             </InputGroup>
           );
         })}
+        {/* Checkbox for dungeon lock status */}
         <FormCheckbox
           className="mb-3"
           checked={dungeonLocked}
@@ -256,7 +261,7 @@ const Assignments = () => {
         >
           Locked
         </FormCheckbox>
-
+        {/* Update dungeon information button. Has validation built in to see if update is needed */}
         <Button
           className="float-right"
           disabled={
@@ -274,6 +279,7 @@ const Assignments = () => {
         >
           Update
         </Button>
+        {/* Social media button */}
         <Button
           className="btn-success"
           disabled={selectedInstructor.lock}

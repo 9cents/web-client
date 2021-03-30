@@ -14,7 +14,7 @@ import {
 } from "shards-react";
 import apiProvider from "../utils/apiProvider";
 import PageTitle from "../components/common/PageTitle";
-import PlayerProgress from "../components/blog/PlayerProgress";
+import PlayerProgress from "../components/PlayerProgress";
 
 export default function Progress(props) {
   const [playersData, setPlayersData] = React.useState([]);
