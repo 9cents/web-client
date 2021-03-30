@@ -1,3 +1,16 @@
+# Pre-requisites
+1. Ensure you have the 'webapp-server' repo up and running.
+2. Ensure you have a `.env` file with `REACT_APP_API=` variable pointing to the running 'webapp-sever'
+   ```
+   REACT_APP_API=http://localhost:5001
+   ```
+
+To install: `npm install`
+
+To run: `npm run start`
+
+---
+
 # Getting Started with Create React App and Template Reference with Shards Dashboard React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and templated with [Shards Dashboard React](https://github.com/DesignRevision/shards-dashboard-react).
