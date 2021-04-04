@@ -430,6 +430,7 @@ const Questions = () => {
               <CardTitle className="px-4 pb-4 pt-0" style={{ width: "100%" }}>
                 {copySelectedQuestion && (
                   <FormTextarea
+                    size="160"
                     style={{ maxWidth: "60%" }}
                     value={
                       copySelectedQuestion
@@ -472,6 +473,7 @@ const Questions = () => {
                 ></FormRadio>
                 <FormInput
                   className="mb-2"
+                  size="140"
                   style={{ maxWidth: "50%" }}
                   onChange={(e) => {
                     var newValue = e.target.value;
